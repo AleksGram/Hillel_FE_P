@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Timer</title>
+  <style type=text/css>
+
+div#seconds {
+  width:200px;
+  height: 100px;
+  margin: auto;
+  font-size: 85px;
+}
+.button {
+   margin: auto;
+   width: 200px;
+}
+button{
+  width: 100px;
+}
+button#stop{
+  margin-top: 5px;
+}
+
+</style>
+</head>
+
+<body>
+ <div id="seconds">00</div>
+ <div class="button">
+ <button id="start">Start</button>
+ <button id="stop">Stop</button>
+ </div>
+  
+  <script>
+      var start = 0;
+      var tikArr = [];
+      var stopped = false;
+      var timeBox = document.getElementById('seconds');
+
+      function timer(){
+          if (start > 8){
+            return start += 1;
+          } else {
+            return '0' + (start += 1);
+          }
+      };
+
+      function starTimer(){
+          if(tikArr.length > 0 ){
+              stop();
+              tikArr.pop();
+              start = 0;
+          }
+
+        var tik = setInterval(function () {
+            timeBox.innerText = timer();
+        },1000);
+
+        tikArr.push(tik);
+        stop = function () {
+            clearInterval(tik);
+        };
+      };
+
+      function stopTimer() {
+          stopped = true;
+          stop();
+          // timeBox.innerText = '00';
+      };
+
+      var startButton = document.getElementById("start");
+      var stopButton  = document.getElementById("stop");
+      startButton.addEventListener('click',starTimer);
+      stopButton.addEventListener('click', stopTimer);
+      
+
+  </script>
+
+</body>
+</html>
