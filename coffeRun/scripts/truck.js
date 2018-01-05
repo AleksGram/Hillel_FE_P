@@ -6,7 +6,7 @@
         this.db = db;
     }
     Truck.prototype.createOrder = function (order) {
-        console.log('Adding order for ' + order.emailAddress);
+        console.log('Adding order for ', order[1].value);
         this.db.add(order.emailAddress, order);
     };
     Truck.prototype.deliverOrder = function (customerId) {
