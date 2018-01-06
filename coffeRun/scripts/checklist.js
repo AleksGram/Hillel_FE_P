@@ -11,7 +11,6 @@
 		}
 	}
 	function Row(coffeeOrder) {
-		console.log('c-o',coffeeOrder);
 		var $div = $('<div></div>',{
 			'data-coffee-order': 'checkbox',
 			'class': 'checkbox'
@@ -22,12 +21,13 @@
 			value: coffeeOrder.emailAddress
 		});
 		var description = coffeeOrder.size + ' ';
-		// if (coffeeOrder.flavor) {
-		// 	description += coffeeOrder.flavor + ' ';
-		// }
+		if (coffeeOrder.flavor) {
+			description += coffeeOrder.flavor + ' ';
+		}
 		description += coffeeOrder.coffee + ', ';
 		description += ' (' + coffeeOrder.emailAddress + ')';
 		description += ' [' + coffeeOrder.strength + 'x]';
+
 		$label.append($checkbox);
 		$label.append(description);
 		$div.append($label);
@@ -37,6 +37,11 @@
 		var rowElement = new Row(coffeeOrder);
 		this.$element.append(rowElement.$element);
 	};
+	var getObject = function (arr, index) {
+		var single = arr[index];
+		return single;
+	};
+
 	App.CheckList = CheckList;
 	window.App = App;
 
