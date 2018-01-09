@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>  </title>
+  <style>
+    .item{
+      width: 100px;
+      height: 100px;
+      margin:  20px 0 0 50px;
+      display: inline-block;
+      border: 2px solid green;
+    }
+    button{
+      margin-left: 14px;
+      display: inline-block;
+      width: 25px;
+      height: 25px;
+    }
+    .wrap{
+      height: 30px;
+      margin-top: 15px;
+    }
+    .number{
+      margin: 0 auto;
+      width: 35px;
+      font-size: 50px;
+
+    }
+  </style>
+</head>
+<body>
+  <div class="item 1"> 
+    <div class="number">0</div>
+    <div class="wrap">
+    <button class="item1">+</button>
+    <button>-</button>
+    </div>
+  </div>
+  <div class="item 2">
+     <div class="number">0</div>
+    <div class="wrap">
+    <button>+</button>
+    <button>-</button>
+    </div>
+  </div>
+  <div class="item 3">
+     <div class="number">0</div>
+    <div class="wrap">
+    <button>+</button>
+    <button>-</button>
+    </div>
+  </div>
+  <div class="item 4">
+     <div class="number">0</div>
+    <div class="wrap">
+    <button>+</button>
+    <button>-</button>
+    </div>
+  </div>
+  <div class="item 5">
+     <div class="number">0</div>
+    <div class="wrap">
+    <button>+</button>
+    <button>-</button>
+    </div>
+  </div>
+  <script>
+    var value = document.getElementsByClassName('number');
+    var button = document.getElementsByTagName('button');
+    function add(){
+      var itemClass = this.className;
+      var items = document.getElementsByClassName(itemClass)[0];
+
+      console.log(number);
+      
+    }
+    button[0].addEventListener('click', add);
+  </script>
+</body>
+</html>
