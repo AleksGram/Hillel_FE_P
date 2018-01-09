@@ -6,7 +6,7 @@
         this.db = db;
     }
     Truck.prototype.createOrder = function (order) {
-        console.log('Adding order for ' + order.emailAddress);
+        console.log('Adding order for ',/* email.value*/ order.emailAddress);
         this.db.add(order.emailAddress, order);
     };
     Truck.prototype.deliverOrder = function (customerId) {
@@ -20,6 +20,11 @@
             console.log(this.db.get(id));
         }, this)
     };
-    App.Truck = Truck;
+	var getObject = function (arr, index) {
+		var single = arr[index];
+		return single;
+	};
+
+	App.Truck = Truck;
     window.App = App;
 })(window);
