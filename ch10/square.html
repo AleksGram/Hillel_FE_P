@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>squares</title>
+    <style>
+        .item{
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+            margin: 25px;
+            font-size: 60px;
+            display: inline-block;
+            text-align: center;
+        }
+        .h{
+            width: 0;
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+     <div class="item h"></div>
+    </div>
+
+    <script>
+        var colors = ['blue', 'green', 'yellow'];
+        var item = document.getElementsByClassName('item');
+        var parent = document.getElementById('container');
+
+        function changeColor() {
+            var background = this.style.background;
+            var initColorIndex = colors.indexOf(background);
+
+            if(initColorIndex < (colors.length - 1) ){
+                initColorIndex  +=  1;
+            } else {
+                initColorIndex = 0;
+            }
+            parent.insertBefore(this, item[3] );
+           this.style.background = colors[initColorIndex];
+           this.style.border = '5px solid green';
+        };
+
+
+        for (var i = 0; i < item.length; i++ ){
+            item[i].addEventListener('click', changeColor);
+        }
+
+
+    </script>
+</body>
+</html>
