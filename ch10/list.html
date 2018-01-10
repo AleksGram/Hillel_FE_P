@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>list</title>
+	<style>
+		.item{
+			text-decoration: none;
+			display: block;
+			width: 500px;
+			height: 30px;
+			border: 1px solid red;
+			margin: 15px;
+		}
+		.active{
+			background: darkred;
+		}
+	</style>
+</head>
+<body>
+	<ul class="list">
+		<li class="item">1</li>
+		<li class="item">2</li>
+		<li class="item">3</li>
+	</ul>
+	<script>
+		var nodeList = document.querySelectorAll('li');
+		function colorFill() {
+			for (var i = 0; i < nodeList.length; i++) {
+				nodeList[i].classList.remove('active');
+			}
+			this.classList.add('active');
+		}
+		for (var i = 0; i < nodeList.length; i++){
+			nodeList[i].classList.remove('active');
+			nodeList[i].addEventListener('click', colorFill);
+		}
+	</script>
+</body>
+</html>
