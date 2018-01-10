@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ch5</title>
+	<style>
+		.item{
+			border: 2px solid red;
+			width: 100px;
+			height: 100px;
+			display: inline-block;
+		}
+		p.number{
+			width: 35px;
+			margin: 0 auto;
+			font-size: 40px;
+			display: flex;
+		}
+		button{
+			width: 25px;
+			margin-left: 14px;
+    		margin-top: 10px;
+		}
+		.add{
+			background: greenyellow;
+		}
+		.minus{
+			background: red;
+		}
+	</style>
+</head>
+<body>
+	<div class="item">
+		<p class="number">0</p>
+		<button class="add">+</button>
+		<button class="minus">-</button>
+	</div>
+	<div class="item">
+		<p class="number">0</p>
+		<button class="add">+</button>
+		<button class="minus">-</button>
+	</div>
+	<div class="item">
+		<p class="number">0</p>
+		<button class="add">+</button>
+		<button class="minus">-</button>
+	</div>
+	<div class="item">
+		<p class="number">0</p>
+		<button class="add">+</button>
+		<button class="minus">-</button>
+	</div>
+	<div class="item">
+		<p class="number">0</p>
+		<button class="add">+</button>
+		<button class="minus">-</button>
+	</div>
+	<script>
+		
+		var addButton = document.getElementsByClassName('add');
+		var minusButton = document.getElementsByClassName('minus');
+		var value = 0;
+		// var number = document.getElementById('number');
+
+		function add(){
+			var currentValue = +(this.parentNode.children[0].innerText);
+			currentValue +=1;
+			this.parentNode.children[0].innerText = currentValue;
+		}
+		function minus(){
+			var currentValue = +(this.parentNode.children[0].innerText);
+			currentValue -=1;
+			this.parentNode.children[0].innerText = currentValue;
+		}
+		for (var i = 0; i < addButton.length; i++){
+			addButton[i].addEventListener('click', add);
+		}
+		for (var j = 0; j < minusButton.length; j++){
+			minusButton[j].addEventListener('click', minus);
+		}
+		// addButton.forEach(item, addEventListener('click', add));
+		// minusButton.addEventListener('click', minus);
+
+	</script>
+</body>
+</html>
