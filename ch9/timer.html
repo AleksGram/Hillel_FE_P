@@ -34,8 +34,6 @@ button#stop{
   
   <script>
       var start = 0;
-      var tikArr = [];
-      var stopped = false;
       var timeBox = document.getElementById('seconds');
 
       function timer(){
@@ -47,26 +45,19 @@ button#stop{
       };
 
       function starTimer(){
-          if(tikArr.length > 0 ){
               stop();
-              tikArr.pop();
               start = 0;
-          }
-
         var tik = setInterval(function () {
             timeBox.innerText = timer();
         },1000);
 
-        tikArr.push(tik);
-        stop = function () {
+         stop = function () {
             clearInterval(tik);
         };
       };
 
       function stopTimer() {
-          stopped = true;
           stop();
-          // timeBox.innerText = '00';
       };
 
       var startButton = document.getElementById("start");
