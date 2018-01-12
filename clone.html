@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>clone</title>
+</head>
+<body>
+	реализовать функцию clone которая бы работала следующим образом:
+var arr = [1,2,3,4,5,6];
+
+var brr = clone(arr);
+
+console.log(brr); // [1,2,3,4,5,6]
+
+brr[0] = 42;
+
+console.log(brr); // [42,2,3,4,5,6]
+
+console.log(arr); // [1,2,3,4,5,6]
+
+
+	<script>
+
+
+		// function clone(array){
+		// 	var clonedArray = [];
+		// 	for (var i = 0; i < array.length; i++){
+		// 		clonedArray[i] = array[i];
+		// 	}
+		// 	return clonedArray;
+		// };
+
+		function clone(array){
+			var clonedArray = [];
+			for (var i = 0; i < array.length; i++){
+				if(typeof(array[i]) === 'object'){
+					clonedArray.push(clone(array[i]));
+				} else {
+					clonedArray.push(array[i]);
+				}
+				
+			}
+			return clonedArray;
+		};
+		
+
+		var initArray = [5,[6,3,[9,9,9]],4,0];
+		console.log('initial array ',initArray);
+		var clonedArray = clone(initArray);
+		console.log('cloned array ',clonedArray);
+		var innerItem = clonedArray[1] ;
+		innerItem[2][0] = 555;
+		console.log('cloned array after changes ',clonedArray);
+		console.log('initial array fter changes ',initArray);
+
+	</script>
+</body>
+</html>
