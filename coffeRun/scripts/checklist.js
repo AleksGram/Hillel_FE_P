@@ -66,10 +66,6 @@
 			fn(email);
 		}.bind(this));
 	};
-	var getObject = function (arr, index) {
-		var single = arr[index];
-		return single;
-	};
 
 	App.CheckList = CheckList;
 	window.App = App;
