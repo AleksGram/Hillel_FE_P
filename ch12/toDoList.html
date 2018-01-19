@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+<div class="container">
+    <p id="error">Please enter value</p>
+    <input type="text" id="inputValue" >
+    <button id="addButton">add</button>
+    <button id="deleteButton">delete</button>
+    <div class="itemsListContainer">
+        <ol id="itemsList"></ol>
+    </div>
+</div>
+<script>
+    var addButton = document.getElementById("addButton");
+    var deleteButton = document.getElementById("deleteButton");
+    var inputField = document.getElementById("inputValue");
+    var itemsList = document.getElementById("itemsList");
+
+    function addItem() {
+        if(inputField.value !== ""){
+            var itemValue = inputField.value;
+            var li = document.createElement("li");
+            li.innerText = itemValue;
+            itemsList.appendChild(li);
+            inputField.value = "";
+            inputField.focus();
+        } else {
+            emptyFieldError();
+        }
+    }
+    function deleteItem() {
+        var listOfItems = document.querySelectorAll("#itemsList>li");
+        if(listOfItems.length > 0){
+            listOfItems[listOfItems.length - 1].remove();
+        }
+    }
+    function emptyFieldError() {
+        var errorText  = document.getElementById('error');
+        errorText.classList.add('showError')
+        var timer = setTimeout(function () {
+            errorText.classList.toggle('showError');
+        },500);
+    }
+    addButton.addEventListener('click', addItem);
+    deleteButton.addEventListener('click', deleteItem);
+
+</script>
+</body>
+</html>
