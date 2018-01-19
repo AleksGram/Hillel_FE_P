@@ -21,6 +21,7 @@
     var deleteButton = document.getElementById("deleteButton");
     var inputField = document.getElementById("inputValue");
     var itemsList = document.getElementById("itemsList");
+    var liItem;
 
     function addItem() {
         if(inputField.value !== ""){
@@ -30,6 +31,8 @@
             itemsList.appendChild(li);
             inputField.value = "";
             inputField.focus();
+            li.addEventListener('click', editItem);
+            console.log(li);
         } else {
             emptyFieldError();
         }
@@ -47,8 +50,17 @@
             errorText.classList.toggle('showError');
         },500);
     }
+    function editInput(newValue) {
+        
+	}
+    function editItem() {
+        console.log(this);
+	}
     addButton.addEventListener('click', addItem);
     deleteButton.addEventListener('click', deleteItem);
+
+
+
 
 </script>
 </body>
