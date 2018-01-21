@@ -9,7 +9,7 @@
 <body>
 <div class="container">
     <p id="error">Please enter value</p>
-    <input type="text" id="inputValue" >
+    <input type="text" id="inputValue" maxlength="28" >
     <button id="addButton">add</button>
     <button id="deleteButton">delete</button>
     <div class="itemsListContainer">
@@ -21,7 +21,6 @@
     var deleteButton = document.getElementById("deleteButton");
     var inputField = document.getElementById("inputValue");
     var itemsList = document.getElementById("itemsList");
-    var liItem;
 
     function addItem() {
         if(inputField.value !== ""){
@@ -50,17 +49,13 @@
             errorText.classList.toggle('showError');
         },500);
     }
-    function editInput(newValue) {
-        
-	}
     function editItem() {
-        console.log(this);
+        inputField.value = this.innerText;
+        inputField.focus();
+        this.remove();
 	}
     addButton.addEventListener('click', addItem);
     deleteButton.addEventListener('click', deleteItem);
-
-
-
 
 </script>
 </body>
