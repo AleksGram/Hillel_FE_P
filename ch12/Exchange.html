@@ -19,11 +19,12 @@
 		<button id="do">Do exchange</button>
 	</div>
 	<script>
-		var RATE = 25;
+		var SELL_RATE = 25;
+		var BUY_RATE = 24.8;
 		var inputField = document.getElementById("inputField");
 		var radioBuy = document.getElementById("buy");
 		var radioSell = document.getElementById("sell");
-		var currency = document.getElementById("Currency");
+		var currency = document.getElementById("currency");
 		var result = document.getElementById("result");
 		var buttons = document.querySelectorAll('.operation');
 		var doButton = document.getElementById('do');
@@ -41,11 +42,34 @@
 		}
 
 		function change() {
-			var changeSum = inputField.value;
-			changeSum *= RATE;
-			result.innerText = "Your summ = " + changeSum;
-			return changeSum;
-
+		    var resultOperation;
+		    var resultText ;
+		    var currencyLabel;
+		    if(radioBuy.checked){
+		        resultText = 'You need to give: ';
+		        switch (currency.value){
+					case 'UAH':
+					 resultOperation = inputField.value / BUY_RATE;
+					 currencyLabel = ' USD';
+					 break;
+					case 'USD':
+					    resultOperation = inputField.value * SELL_RATE;
+                        currencyLabel = ' UAH';
+                        break;
+				}
+			} else {
+		        resultText = "You'll  get: ";
+		        switch (currency.value){
+					case 'UAH':
+					    resultOperation = inputField.value / SELL_RATE;
+                        currencyLabel = ' USD';
+                        break;
+					case 'USD':
+					    resultOperation = inputField.value * BUY_RATE;
+                        currencyLabel = ' UAH';
+                }
+			}
+			result.innerText = resultText + resultOperation.toFixed(2) + currencyLabel;
 		}
 		buttons.forEach(function (radio) {
 			radio.addEventListener('click', changeOperation);
