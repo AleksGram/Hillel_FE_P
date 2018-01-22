@@ -3,24 +3,42 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Exchange</title>
+	<style>
+		#container{
+			margin: 25px;
+		}
+		#inputField{
+			margin: 5px 5px 5px 0;
+		}
+		#result{
+			margin-top: 5px;
+		}
+		#do{
+			margin-top: 5px;
+		}
+	</style>
 </head>
 <body>
 	<div id="container">
+		<div id="currentRate">
+		</div>
 		<input type="text" id="inputField">
-		<input class="operation" type="radio" id="buy" checked="checked">
-		<label for="buy">Buy</label>
-		<input class="operation" type="radio" id="sell">
-		<label for="sell">Sell</label>
 		<select name="Currency" id="currency">
 			<option value="UAH">UAH</option>
 			<option value="USD">USD</option>
 		</select>
+		<div class="radio">
+		<input class="operation" type="radio" id="buy" checked="checked">
+		<label for="buy">Buy</label>
+		<input class="operation" type="radio" id="sell">
+		<label for="sell">Sell</label>
+		</div>
 		<div id="result"></div>
 		<button id="do">Do exchange</button>
 	</div>
 	<script>
-		var SELL_RATE = 25;
-		var BUY_RATE = 24.8;
+		var SELL_RATE = 28.90;
+		var BUY_RATE = 28.65;
 		var inputField = document.getElementById("inputField");
 		var radioBuy = document.getElementById("buy");
 		var radioSell = document.getElementById("sell");
@@ -29,7 +47,10 @@
 		var buttons = document.querySelectorAll('.operation');
 		var doButton = document.getElementById('do');
 
-
+		function showRates(sellRate, buyRate) {
+			document.getElementById('currentRate').innerText = 'Current sell rate: '+ SELL_RATE.toFixed(2) + ' UAH/USD'+'\n'
+			+ 'Current buy rate: ' + BUY_RATE.toFixed(2) + ' UAH/USD';
+        }
 		function changeOperation() {
 			if(this.checked){
 				buttons.forEach(function (item) {
@@ -75,6 +96,7 @@
 			radio.addEventListener('click', changeOperation);
 		});
 		doButton.addEventListener('click', change);
+		showRates(SELL_RATE, BUY_RATE);
 
 
 	</script>
