@@ -7,27 +7,32 @@
         if (!url){
             throw new Error('No remote URL supplied.');
         }
-        this.severUrl = url;
+        this.serverUrl = url;
     }
     RemoteDataStore.prototype.add  = function (key, val) {
-        $.post(this.severUrl, val, function (serverResponse) {
-            console.log(serverResponse);
-        } )
+        this.getAll(function (data) {
+            if(data.hasOwnProperty(key)){
+                throw new Error('Email exist already');
+            }
+            $.post(this.serverUrl, val, function (serverResponse) {
+                console.log('after',serverResponse);
+            },this);
+        });
     };
     RemoteDataStore.prototype.getAll = function (cb) {
-        $.get(this.severUrl, function (serverResponse) {
-            console.log(serverResponse);
+        $.get(this.serverUrl, function (serverResponse) {
+            console.log('before',serverResponse);
             cb(serverResponse);
         });
     };
     RemoteDataStore.prototype.get = function (key, cb) {
-        $.get(this.severUrl + '/' + key, function (serverResponse) {
+        $.get(this.serverUrl + '/' + key, function (serverResponse) {
             console.log(serverResponse);
             cb(serverResponse);
         });
     };
     RemoteDataStore.prototype.remove = function (key) {
-        $.ajax(this.severUrl + '/' + key, {
+        $.ajax(this.serverUrl + '/' + key, {
             type: 'DELETE'
         });
     };
