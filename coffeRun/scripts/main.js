@@ -13,13 +13,17 @@
 	var remoteDS = new RemoteDataStore(SERVER_URL);
 	var myTruck = new Truck('ncc-1701', remoteDS);
     window.myTruck = myTruck;
-	var checkList = new CheckList(CHECKLIST_SELECTOR);
+    var checkList = new CheckList(CHECKLIST_SELECTOR);
 	checkList.addClickHandler(myTruck.deliverOrder.bind(myTruck));
     var formHandler = new FormHandler(FORM_SELECTOR);
+
     formHandler.addSubmitHandler(function (data) {
-        myTruck.createOrder.call(myTruck, data);
-        checkList.addRow.call(checkList, data);
+        myTruck.createOrder.call(myTruck, data)
+            .then(function () {
+                checkList.addRow.call(checkList, data);
+            })
 	});
+
     formHandler.addInputHandler(Validation.isCompanyEmail);
     console.log(formHandler);
 
