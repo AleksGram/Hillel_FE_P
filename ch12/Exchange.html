@@ -28,9 +28,9 @@
 			<option value="USD">USD</option>
 		</select>
 		<div class="radio">
-		<input class="operation" type="radio" id="buy" checked="checked">
+		<input class="operation" type="radio" id="buy" checked="checked" name="operate">
 		<label for="buy">Buy</label>
-		<input class="operation" type="radio" id="sell">
+		<input class="operation" type="radio" id="sell" name="operate">
 		<label for="sell">Sell</label>
 		</div>
 		<div id="result"></div>
@@ -51,16 +51,6 @@
 			document.getElementById('currentRate').innerText = 'Current sell rate: '+ SELL_RATE.toFixed(2) + ' UAH/USD'+'\n'
 			+ 'Current buy rate: ' + BUY_RATE.toFixed(2) + ' UAH/USD';
         }
-		function changeOperation() {
-			if(this.checked){
-				buttons.forEach(function (item) {
-					if(item.checked){
-						item.checked = false;
-					}
-				});
-				this.checked = true;
-			}
-		}
 
 		function change() {
 		    var resultOperation;
@@ -92,9 +82,6 @@
 			}
 			result.innerText = resultText + resultOperation.toFixed(2) + currencyLabel;
 		}
-		buttons.forEach(function (radio) {
-			radio.addEventListener('click', changeOperation);
-		});
 		doButton.addEventListener('click', change);
 		showRates(SELL_RATE, BUY_RATE);
 
