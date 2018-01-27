@@ -36,13 +36,11 @@
     }
     function deleteItem() {
         var listOfItems = document.querySelectorAll("#itemsList>li");
-        if(listOfItems.length > 0){
             listOfItems.forEach(function (item) {
                 if(item.classList.contains('done')){
                     item.remove();
                 }
             });
-        }
     }
     function emptyFieldError() {
         var errorText  = document.getElementById('error');
