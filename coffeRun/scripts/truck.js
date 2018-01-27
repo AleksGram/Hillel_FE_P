@@ -13,12 +13,18 @@
         console.log('Delivering order for ' + customerId);
        return this.db.remove(customerId);
     };
-    Truck.prototype.printOrders = function () {
-        var customerIdarray = Object.keys(this.db.getAll());
-        console.log('Truck #' + this.truckId + ' has pending orders:');
-        customerIdarray.forEach(function (id) {
-            console.log(this.db.get(id));
-        }, this)
+    Truck.prototype.printOrders = function (printFn) {
+        return this.db.getAll()
+            .then(function (orders) {
+                var customerIdarray = Object.keys(orders);
+                console.log('Truck #' + this.truckId + ' has pending orders:');
+                customerIdarray.forEach(function (id) {
+                    console.log(orders[id]);
+                    if(printFn){
+                        printFn(orders[id]);
+                    }
+                }.bind(this));
+            }.bind(this));
     };
 	var getObject = function (arr, index) {
 		var single = arr[index];

@@ -15,7 +15,6 @@
         //         throw new Error('Email exist already');
         //     }
            return $.post(this.serverUrl, val, function (serverResponse) {
-                console.log('after',serverResponse);
             });
         // });
     };
