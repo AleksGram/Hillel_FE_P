@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ToDoList</title>
+    <title>ToDoList2</title>
     <link rel="stylesheet" href="style.css">
 
 </head>
@@ -30,8 +30,6 @@
             itemsList.appendChild(li);
             inputField.value = "";
             inputField.focus();
-            li.addEventListener('click', editItem);
-            console.log(li);
         } else {
             emptyFieldError();
         }
@@ -39,7 +37,11 @@
     function deleteItem() {
         var listOfItems = document.querySelectorAll("#itemsList>li");
         if(listOfItems.length > 0){
-            listOfItems[listOfItems.length - 1].remove();
+            listOfItems.forEach(function (item) {
+                if(item.classList.contains('done')){
+                    item.remove();
+                }
+            });
         }
     }
     function emptyFieldError() {
@@ -54,6 +56,20 @@
         inputField.focus();
         this.remove();
 	}
+	function done() {
+        this.classList.toggle("done");
+    }
+	itemsList.addEventListener('dblclick', function (e) {
+	    if (e.target.tagName === 'LI'){
+	        editItem.call(e.target);
+        }
+    });
+    itemsList.addEventListener('click', function (e) {
+        if (e.target.tagName === 'LI'){
+            done.call(e.target);
+        }
+    });
+
     addButton.addEventListener('click', addItem);
     deleteButton.addEventListener('click', deleteItem);
 

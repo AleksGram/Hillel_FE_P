@@ -16,6 +16,7 @@ ol li{
     color: white;
 }
  #error.showError{
+     width: 18em;
     background: coral;
 }
 .itemsListContainer{
@@ -32,4 +33,8 @@ ol li{
 }
 .emptyError{
     background: coral;
+}
+#itemsList li.done{
+    opacity: 0.8;
+    text-decoration: line-through;
 }
