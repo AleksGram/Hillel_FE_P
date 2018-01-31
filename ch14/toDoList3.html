@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList3</title>
+    <link rel="stylesheet" href="style3.css">
+
+</head>
+<body>
+<div class="container">
+    <p id="error">Please enter value</p>
+    <input type="text" id="inputValue" maxlength="28" >
+    <button id="addButton">add</button>
+    <button id="deleteButton">delete</button>
+    <button id="hideButton">hide completed</button>
+    <div class="itemsListContainer">
+        <ol id="itemsList"></ol>
+    </div>
+</div>
+<script>
+
+    var addButton = document.getElementById("addButton");
+    var deleteButton = document.getElementById("deleteButton");
+    var hideShowButton = document.getElementById("hideButton");
+    var inputField = document.getElementById("inputValue");
+    var itemsList = document.getElementById("itemsList");
+    var tasks = {};
+    getStorage();
+    function addItem () {
+       createTask();
+    }
+    function createTask(value){
+        if(inputField.value !== "" || value){
+            var listOfItems = document.querySelectorAll("#itemsList>li");
+            var itemValue = (value) ? value : inputField.value;
+            var li = document.createElement("li");
+            li.innerText = itemValue;
+            itemsList.appendChild(li);
+            inputField.value = "";
+            inputField.focus();
+            createStorageObject(listOfItems.length, itemValue);
+        } else {
+            emptyFieldError();
+        }
+    }
+    function createStorageObject(itemKey, value) {
+        tasks['item' + itemKey] = value;
+        console.log(tasks);
+    }
+    function removeFromStorageObject(value) {
+        for (index in tasks){
+            if(tasks.hasOwnProperty(index) && tasks[index] === value){
+                console.log(value, tasks[index], index);
+               delete tasks[index];
+            }
+        }
+    }
+    function deleteItem() {
+        var listOfItems = document.querySelectorAll("#itemsList>li");
+        listOfItems.forEach(function (item) {
+                if(item.classList.contains('done')){
+                    item.remove();
+                    removeFromStorageObject(item.innerText);
+                }
+            });
+    }
+    function emptyFieldError() {
+        var errorText  = document.getElementById('error');
+        errorText.classList.add('showError');
+        setTimeout(function () {
+            errorText.classList.remove('showError');
+        },500);
+    }
+    function editItem() {
+        inputField.value = this.innerText;
+        inputField.focus();
+        this.remove();
+	}
+	function done() {
+        this.classList.toggle("done");
+    }
+    function hideDone() {
+        var listOfItems = document.querySelectorAll("#itemsList>li");
+        listOfItems.forEach(function (item) {
+            if (item.classList.contains('done')){
+                item.classList.toggle('hide');
+                if(item.classList.contains('hide')){
+                    hideShowButton.innerText = "show completed";
+                } else {
+                    hideShowButton.innerText = "hide completed";
+                }
+            }
+        })
+    }
+	itemsList.addEventListener('dblclick', function (e) {
+	    if (e.target.tagName === 'LI'){
+	        editItem.call(e.target);
+        }
+    });
+    itemsList.addEventListener('click', function (e) {
+        if (e.target.tagName === 'LI'){
+            done.call(e.target);
+        }
+    });
+
+    addButton.addEventListener('click', addItem);
+    deleteButton.addEventListener('click', deleteItem);
+    hideShowButton.addEventListener('click', hideDone);
+
+    window.onbeforeunload = function()
+    {
+        var serTasks = JSON.stringify(tasks);
+        localStorage.setItem('myTasks', serTasks);
+    };
+    function getStorage() {
+        var storageTasks = JSON.parse(localStorage.getItem('myTasks'));
+        for( item in storageTasks){
+            if (storageTasks.hasOwnProperty(item)){
+                console.log(storageTasks[item]);
+                createTask(storageTasks[item]);
+            }
+        }
+    }
+</script>
+</body>
+</html>
