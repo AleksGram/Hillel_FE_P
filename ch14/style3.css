@@ -27,6 +27,9 @@ ol li{
     width: 20em;
     margin-top: .1em;
 }
+.itemsListContainer.hide>#itemsList li.done{
+    display: none;
+}
 #itemsList li{
     font-size: 1.5em;
     border: .1em solid white;
@@ -39,6 +42,14 @@ ol li{
     opacity: 0.8;
     text-decoration: line-through;
 }
-#itemsList li.done.hide{
+li>button{
+    float: right;
+    height: 17px;
+    width: 46px;
+}
+li.done>button{
     display: none;
+}
+li>button.save{
+    background-color: darkorange;
 }
