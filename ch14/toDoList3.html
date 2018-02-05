@@ -14,7 +14,8 @@
     <button id="deleteButton">delete</button>
     <button id="hideButton">hide completed</button>
     <div class="itemsListContainer">
-        <ol id="itemsList"></ol>
+        <ol id="itemsList">
+        </ol>
     </div>
 </div>
 <script>
@@ -24,6 +25,8 @@
     var hideShowButton = document.getElementById("hideButton");
     var inputField = document.getElementById("inputValue");
     var itemsList = document.getElementById("itemsList");
+    var listContainer = document.querySelector('.itemsListContainer');
+
     var tasks = {};
     getStorage();
     function addItem () {
@@ -35,6 +38,9 @@
             var itemValue = (value) ? value : inputField.value;
             var li = document.createElement("li");
             li.innerText = itemValue;
+            var editButton = document.createElement('button');
+            editButton.innerText = 'Edit';
+            li.appendChild(editButton);
             itemsList.appendChild(li);
             inputField.value = "";
             inputField.focus();
@@ -45,7 +51,6 @@
     }
     function createStorageObject(itemKey, value) {
         tasks['item' + itemKey] = value;
-        console.log(tasks);
     }
     function removeFromStorageObject(value) {
         for (index in tasks){
@@ -76,21 +81,18 @@
         inputField.focus();
         this.remove();
 	}
+
 	function done() {
         this.classList.toggle("done");
     }
+
     function hideDone() {
-        var listOfItems = document.querySelectorAll("#itemsList>li");
-        listOfItems.forEach(function (item) {
-            if (item.classList.contains('done')){
-                item.classList.toggle('hide');
-                if(item.classList.contains('hide')){
-                    hideShowButton.innerText = "show completed";
-                } else {
-                    hideShowButton.innerText = "hide completed";
-                }
-            }
-        })
+        listContainer.classList.toggle('hide');
+        if (listContainer.classList.contains('hide')) {
+            hideShowButton.innerText = "show completed";
+        } else {
+            hideShowButton.innerText = "hide completed";
+        }
     }
 	itemsList.addEventListener('dblclick', function (e) {
 	    if (e.target.tagName === 'LI'){
@@ -102,7 +104,22 @@
             done.call(e.target);
         }
     });
-
+    itemsList.addEventListener('click', function (e) {
+        if (e.target.tagName === 'BUTTON'){
+            if(e.target.classList.contains('save')){
+                e.target.parentNode.innerHTML = inputField.value + '<button>Edit</button>' ;
+                e.target.classList.remove('save');
+                inputField.value = "";
+            } else {
+                var currentTaskValue = e.target.parentNode.innerText.slice(0, -4);
+                inputField.value = currentTaskValue;
+                inputField.focus();
+                e.target.classList.add('save');
+                e.target.innerText = 'Save';
+                // e.target.classList.toggle('save');
+            }
+        }
+    });
     addButton.addEventListener('click', addItem);
     deleteButton.addEventListener('click', deleteItem);
     hideShowButton.addEventListener('click', hideDone);
@@ -116,7 +133,6 @@
         var storageTasks = JSON.parse(localStorage.getItem('myTasks'));
         for( item in storageTasks){
             if (storageTasks.hasOwnProperty(item)){
-                console.log(storageTasks[item]);
                 createTask(storageTasks[item]);
             }
         }
