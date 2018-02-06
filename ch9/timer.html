@@ -35,37 +35,37 @@ button#stop{
   <script>
       var start = 0;
       var timeBox = document.getElementById('seconds');
+      var tik;
 
-      function timer(){
-          if (start > 8){
-            return start += 1;
+      function timer() {
+          if (start > 8) {
+              return start += 1;
           } else {
-            return '0' + (start += 1);
+              return '0' + (start += 1);
           }
-      };
+      }
 
-      function starTimer(){
-              stop();
-              start = 0;
-        var tik = setInterval(function () {
-            timeBox.innerText = timer();
-        },1000);
+      function starTimer() {
+          stop(tik);
+          start = 0;
+          tik = setInterval(function () {
+              timeBox.innerText = timer();
+          }, 1000);
+      }
 
-         stop = function () {
-            clearInterval(tik);
-        };
-      };
+      function stop(interval) {
+          clearInterval(interval);
+      }
 
       function stopTimer() {
-          stop();
-      };
+          stop(tik);
+      }
 
       var startButton = document.getElementById("start");
-      var stopButton  = document.getElementById("stop");
-      startButton.addEventListener('click',starTimer);
+      var stopButton = document.getElementById("stop");
+      startButton.addEventListener('click', starTimer);
       stopButton.addEventListener('click', stopTimer);
       
-
   </script>
 
 </body>

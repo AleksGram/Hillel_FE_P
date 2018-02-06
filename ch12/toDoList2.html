@@ -64,7 +64,9 @@
     });
     itemsList.addEventListener('click', function (e) {
         if (e.target.tagName === 'LI'){
+            console.log(e)
             done.call(e.target);
+            e.target.hidden = true;
         }
     });
 
