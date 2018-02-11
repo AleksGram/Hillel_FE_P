@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>table</title>
+    <style>
+        th {
+            font-weight: normal;
+            border: 2px solid #6678b1;
+            /*border-right: 30px solid #fff;*/
+            /*border-left: 30px solid #fff;*/
+            color: #039;
+            padding: 8px 2px;
+        }
+        td {
+            border-right: 30px solid #fff;
+            border-left: 30px solid #fff;
+            color: #669;
+            padding: 12px 2px;
+        }
+        th.transform{
+            transform: rotate(-180deg);
+        }
+    </style>
+</head>
+<body>
+<table id="myTable">
+    <caption>Таблица № 1</caption>
+    <tr>
+        <th>Q0</th>
+        <th>Q1</th>
+        <th>Q2</th>
+        <th>Q3</th>
+        <th>Q4</th>
+        <th>Q5</th>
+        <th>Q6</th>
+        <th>Q7</th>
+        <th>Q8</th>
+        <th>Q9</th>
+    </tr>
+    <tr>
+        <th>Q0</th>
+        <th>Q1</th>
+        <th>Q2</th>
+        <th>Q3</th>
+        <th>Q4</th>
+        <th>Q5</th>
+        <th>Q6</th>
+        <th>Q7</th>
+        <th>Q8</th>
+        <th>Q9</th>
+    </tr>
+    <tr>
+        <th>Q0</th>
+        <th>Q1</th>
+        <th>Q2</th>
+        <th>Q3</th>
+        <th>Q4</th>
+        <th>Q5</th>
+        <th>Q6</th>
+        <th>Q7</th>
+        <th>Q8</th>
+        <th>Q9</th>
+    </tr>
+    <tr>
+        <th>Q0</th>
+        <th>Q1</th>
+        <th>Q2</th>
+        <th>Q3</th>
+        <th>Q4</th>
+        <th>Q5</th>
+        <th>Q6</th>
+        <th>Q7</th>
+        <th>Q8</th>
+        <th>Q9</th>
+    </tr>
+    <tr>
+        <th>Q0</th>
+        <th>Q1</th>
+        <th>Q2</th>
+        <th>Q3</th>
+        <th>Q4</th>
+        <th>Q5</th>
+        <th>Q6</th>
+        <th>Q7</th>
+        <th>Q8</th>
+        <th>Q9</th>
+    </tr>
+    ...
+</table>
+<script>
+    var table = document.getElementById('myTable');
+    table.addEventListener('click', function (e) {
+        console.log(e.target);
+        e.target.style.background = 'red';
+        e.target.classList.add('transform');
+    })
+</script>
+</body>
+</html>
