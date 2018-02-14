@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoList3</title>
+    <link rel="stylesheet" href="style3.css">
+    <script src="jQuery1_8_2.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <p id="error">Please enter value</p>
+    <input type="text" id="inputValue" maxlength="28" >
+    <button id="addButton">add</button>
+    <button id="deleteButton">delete</button>
+    <button id="hideButton">hide completed</button>
+    <div class="itemsListContainer">
+        <ol id="itemsList">
+        </ol>
+    </div>
+</div>
+<script>
+
+    var addButton = $("#addButton");
+    var deleteButton = $("#deleteButton");
+    var hideShowButton = $("#hideButton");
+    var inputField = $("#inputValue");
+    var itemsList = $("#itemsList");
+    var listContainer = $('.itemsListContainer');
+
+    var tasks = {};
+    getStorage();
+    function addItem () {
+       createTask();
+    }
+    function createTask(value){
+        if(inputField.val() !== "" || value){
+            var listOfItems = $("#itemsList>li");
+            var itemValue = (value) ? value : inputField.val();
+            var li = document.createElement("li");
+            $(li).text(itemValue);
+            var editButton = document.createElement('button');
+            $(editButton).text('Edit');
+            $(li).append(editButton);
+            itemsList.append(li);
+            $(inputField).val("");
+            $(inputField).focus();
+            createStorageObject(listOfItems.length, itemValue);
+        } else {
+            emptyFieldError();
+        }
+    }
+    function createStorageObject(itemKey, value) {
+        tasks['item' + itemKey] = value;
+    }
+    function removeFromStorageObject(value) {
+        for (index in tasks){
+            if(tasks.hasOwnProperty(index) && tasks[index] === value){
+                console.log(value, tasks[index], index);
+               delete tasks[index];
+            }
+        }
+    }
+    function deleteItem() {
+        var listOfItems = document.querySelectorAll("#itemsList>li");
+        listOfItems.forEach(function (item) {
+                if(item.classList.contains('done')){
+                    item.remove();
+                    removeFromStorageObject(item.innerText);
+                }
+            });
+    }
+    function emptyFieldError() {
+        var errorText  = document.getElementById('error');
+        errorText.classList.add('showError');
+        setTimeout(function () {
+            errorText.classList.remove('showError');
+        },500);
+    }
+    function editItem() {
+        inputField.val(this.val()) ;
+        inputField.focus();
+        this.remove();
+	}
+
+	function done() {
+        this.classList.toggle("done");
+    }
+
+    function hideDone() {
+        listContainer.toggleClass('hide');
+        if (listContainer.hasClass('hide')) {
+            hideShowButton.text("show completed");
+        } else {
+            hideShowButton.text("hide completed");
+        }
+    }
+	itemsList.dblclick( function (e) {
+	    if (e.target.tagName === 'LI'){
+	        editItem.call(e.target);
+        }
+    });
+    itemsList.click(function (e) {
+        if (e.target.tagName === 'LI'){
+            done.call(e.target);
+        }
+    });
+    itemsList.click(function (e) {
+        if (e.target.tagName === 'BUTTON'){
+            if(e.target.classList.contains('save')){
+                e.target.parentNode.innerHTML = inputField.val() + '<button>Edit</button>' ;
+                e.target.classList.remove('save');
+                inputField.val("");
+            } else {
+                var currentTaskValue = e.target.parentNode.innerText.slice(0, -4);
+                inputField.val(currentTaskValue);
+                inputField.focus();
+                e.target.classList.add('save');
+                e.target.innerText = 'Save';
+                // e.target.classList.toggle('save');
+            }
+        }
+    });
+    addButton.click(addItem);
+    deleteButton.click(deleteItem);
+    hideShowButton.click(hideDone);
+
+    window.onbeforeunload = function () {
+        var serTasks = JSON.stringify(tasks);
+        localStorage.setItem('myTasks', serTasks);
+    };
+    function getStorage() {
+        var storageTasks = JSON.parse(localStorage.getItem('myTasks'));
+        for( item in storageTasks){
+            if (storageTasks.hasOwnProperty(item)){
+                createTask(storageTasks[item]);
+            }
+        }
+    }
+</script>
+</body>
+</html>

@@ -3,11 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>search</title>
+    <style>
+        select {
+            width: 100px;
+        }
+    </style>
 </head>
 <body>
+<select name="mySelect" id="select"></select>
 
 <script src=lib/jQuery1_8_2.js></script>
 <script>
+    var select = $('#select');
+
+
     var availableAssets = [
         {
             title : 'XMR/BTC',
