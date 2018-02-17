@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+</head>
+<body>
+Вам нужно сделать конструктор сущности Студент.
+У Студента есть имя, фамилия, год рождения — это свойства. Есть массив с оценками, это тоже свойство. И есть возможность
+получить возраст студента и его средний бал — это методы.
+Еще у всех Студентов есть по массиву одинаковой длины, в нем 25 элементов, изначально он не заполнен, но на 25 элементов.
+Это массив в котором отмечается посещаемость, каждый раз когда мы вызываем метод .present() на очередное пустое место
+в массив записывается true, когда вызываем .absent() — записывается false. Предусмотрите какую нибудь защиту от того
+чтоб в массиве посещаемости не могло быть более 25 записей. Массив это свойство, present и absent — методы.
+Ну и последний метод: .summary(), он проверяет среднюю оценку, и
+среднее посещение(количествоПосещений/количествоЗанятий), и если средняя оценка больше 90 а среднее посещение больше 0.9,
+то метод summary, возвращает строку "Ути какой молодчинка!", если одно из этих значений меньше, то — "Норм, но можно лучше",
+если оба ниже — "Редиска!".
+Ну и не забудьте после того как напишите замечательный конструктор, создать пару экземпляров(конкретных студентов)
+и подергать методы.
+<script>
+    const studyDays = 25;
+    function Student(firstName, lastName, born) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.born = born;
+        this.estimates = [];
+        this.attendance = new Array(studyDays);
+    }
+    var proto = Student.prototype;
+        proto.getAge = function () {
+            return (new Date().getFullYear() - this.born);
+        };
+        proto.getEstimationRate = function () {
+          var length = this.estimates.length;
+          var sum = 0;
+          this.estimates.forEach(function (value) {
+              sum += value;
+          });
+            return sum/length;
+        };
+        proto.present = function (quantity) {
+            if(quantity > 1){
+                for((quantity - 1); quantity > 0; quantity--){
+                    this.present();
+                }
+            } else {
+                this.attendance.shift();
+                this.attendance.push(true);
+            }
+        };
+
+        proto.absent = function (quantity) {
+            if(quantity > 1){
+                for((quantity - 1); quantity > 0; quantity--){
+                    this.absent();
+                }
+            } else {
+                this.attendance.shift();
+                this.attendance.push(false);
+            }
+        };
+        proto.getAttendanceRate = function () {
+            var visited = 0;
+            var notVisited = 0;
+            this.attendance.forEach(function (value) {
+                if(value){
+                    visited +=1;
+                } else {
+                    notVisited +=1;
+                }
+            });
+            if(visited > 0){
+                return visited/(visited + notVisited);
+            } else {
+                return 0;
+            }
+        };
+        proto.summary = function () {
+            if(this.getAttendanceRate() >= 0.9 && this.getEstimationRate() >= 90){
+                console.log(this.firstName + "  Good student!")
+            } else if(this.getAttendanceRate() >= 0.9 || this.getEstimationRate() >= 90){
+                console.log(this.firstName + '  You can do better!');
+            } else {
+                console.log(this.firstName + '  Radish!');
+            }
+        };
+
+
+    var st1 = new Student('Alex', 'Balex', 1990);
+    st1.estimates = [90,90,100,90,88,100];
+    st1.present(10);
+    st1.absent();
+    st1.summary();
+
+    var st2 = new Student('Julia', 'Pulia', 1980);
+    st1.estimates = [65,90,100,30,88,100];
+    st2.present(2);
+    st2.absent(8);
+    st2.summary();
+
+    var st3 = new Student('Boris', 'Kolorist', 1999);
+    st3.estimates = [90,90,100,90,88,100];
+    st3.present(5);
+    st3.absent(16);
+    st3.summary();
+
+</script>
+</body>
+</html>
