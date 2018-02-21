@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Students</title>
+</head>
+<body>
+Создать конструктор массива, который будет содержать объекты из прошлого задания на прототипы.
+Массивы созданные с помощью этого конструктора должны содержать следующие методы:
+.attendance — если вызывается без аргумента, то возвращает среднюю посещаемость группы за одно занятие;
+если с аргументом — строкой содержащей фамилию одного из студентов, то возвращает его место в рейтинге посещаемости
+.performance — то же самое, но с оценками
+    <script>
+        function Students() {
+            this.studentsArray = [];
+        }
+        var proto = Students.prototype;
+        proto.add = function (students) {
+            if(!Array.isArray(students)){
+                this.studentsArray.push(students);
+            } else {
+                students.forEach(function (item, index) {
+                    this.studentsArray[index] = item;
+                }, this)
+            }
+        }
+    </script>
+</body>
+</html>
