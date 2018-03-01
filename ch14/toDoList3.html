@@ -65,7 +65,7 @@
         listOfItems.forEach(function (item) {
                 if(item.classList.contains('done')){
                     item.remove();
-                    removeFromStorageObject(item.innerText);
+                    removeFromStorageObject(item.innerText.split('E')[0]);
                 }
             });
     }
@@ -124,8 +124,7 @@
     deleteButton.addEventListener('click', deleteItem);
     hideShowButton.addEventListener('click', hideDone);
 
-    window.onbeforeunload = function()
-    {
+    window.onbeforeunload = function(){
         var serTasks = JSON.stringify(tasks);
         localStorage.setItem('myTasks', serTasks);
     };

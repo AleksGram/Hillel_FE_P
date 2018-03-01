@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToDoMVC</title>
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+<div class="container">
+    <p id="error">Please enter value</p>
+    <input type="text" id="inputValue" maxlength="28" >
+    <button id="addButton">add</button>
+    <button id="deleteButton">delete</button>
+    <button id="hideButton">hide completed</button>
+    <div class="itemsListContainer">
+        <ol id="itemsList">
+        </ol>
+    </div>
+</div>
+<script src="scripts/EntityView.js" charset="utf-8"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="scripts/Model.js" charset="utf-8"></script>
+<script src="scripts/Controller.js" charset="utf-8"></script>
+<script src="scripts/App.js" charset="utf-8"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+body{
+    font-size: 62.5%;
+}
+#hideButton{
+    width: 115px;
+}
+
+.container{
+    width: 40em;
+    padding: .5em;
+}
+ol{
+    padding-left: 1.5em;
+}
+ol li{
+    width: 16.5em;
+}
+#error{
+    font-size: 1.5em;
+    color: white;
+}
+ #error.showError{
+     width: 18em;
+    background: coral;
+}
+.itemsListContainer{
+    width: 20em;
+    margin-top: .1em;
+}
+.itemsListContainer.hide>#itemsList li.done{
+    display: none;
+}
+#itemsList li{
+    font-size: 1.5em;
+    border: .1em solid white;
+}
+#itemsList li:hover{
+    border: .1em solid gray;
+    background: cornsilk;
+}
+#itemsList li.done{
+    opacity: 0.8;
+    text-decoration: line-through;
+}
+li>button{
+    float: right;
+    height: 17px;
+    width: 46px;
+}
+li.done>button{
+    display: none;
+}
+li>button.save{
+    background-color: darkorange;
+}
