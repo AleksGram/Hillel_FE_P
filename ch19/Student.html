@@ -7,6 +7,7 @@
 <body>
 <script>
     const studyDays = 25;
+
     function Student(firstName, lastName, born) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -14,71 +15,74 @@
         this.estimates = [];
         this.attendance = new Array(studyDays);
     }
-    var proto = Student.prototype;
-        proto.getAge = function () {
-            return (new Date().getFullYear() - this.born);
-        };
-        proto.getEstimationRate = function () {
-          var length = this.estimates.length;
-          var sum = 0;
-          this.estimates.forEach(function (value) {
-              sum += value;
-          });
-            return sum/length;
-        };
-        proto.present = function (quantity) {
-            if(quantity > 1){
-                for((quantity - 1); quantity > 0; quantity--){
-                    this.present();
-                }
-            } else {
-                this.attendance.shift();
-                this.attendance.push(true);
-            }
-        };
 
-        proto.absent = function (quantity) {
-            if(quantity > 1){
-                for((quantity - 1); quantity > 0; quantity--){
-                    this.absent();
-                }
-            } else {
-                this.attendance.shift();
-                this.attendance.push(false);
+    var proto = Student.prototype;
+    proto.getAge = function () {
+        return (new Date().getFullYear() - this.born);
+    };
+    proto.getEstimationRate = function () {
+        var length = this.estimates.length;
+        var sum = 0;
+        this.estimates.forEach(function (value) {
+            sum += value;
+        });
+        return sum / length;
+    };
+    proto.present = function (quantity) {
+        if (quantity > 1) {
+            for ((quantity - 1); quantity > 0; quantity--) {
+                this.present();
             }
-        };
-        proto.getAttendanceRate = function () {
-            var visited = 0;
-            var notVisited = 0;
-            this.attendance.forEach(function (value) {
-                if(value){
-                    visited +=1;
-                } else {
-                    notVisited +=1;
-                }
-            });
-            if(visited > 0){
-                return visited/(visited + notVisited);
-            } else {
-                return 0;
+        } else {
+            this.attendance.shift();
+            this.attendance.push(true);
+        }
+    };
+
+    proto.absent = function (quantity) {
+        if (quantity > 1) {
+            for ((quantity - 1); quantity > 0; quantity--) {
+                this.absent();
             }
-        };
-        proto.summary = function () {
-            if(this.getAttendanceRate() >= 0.9 && this.getEstimationRate() >= 90){
-                console.log(this.firstName + " " + this.lastName + "  Good student!")
-            } else if(this.getAttendanceRate() >= 0.9 || this.getEstimationRate() >= 90){
-                console.log(this.firstName + " " + this.lastName + '  You can do better!');
+        } else {
+            this.attendance.shift();
+            this.attendance.push(false);
+        }
+    };
+    proto.getAttendanceRate = function () {
+        var visited = 0;
+        var notVisited = 0;
+        this.attendance.forEach(function (value) {
+            if (value) {
+                visited += 1;
             } else {
-                console.log(this.firstName  + " " + this.lastName + '  Radish!');
+                notVisited += 1;
             }
-        };
+        });
+        if (visited > 0) {
+            return visited / (visited + notVisited);
+        } else {
+            return 0;
+        }
+    };
+    proto.summary = function () {
+        if (this.getAttendanceRate() >= 0.9 && this.getEstimationRate() >= 90) {
+            console.log(this.firstName + " " + this.lastName + "  Good student!")
+        } else if (this.getAttendanceRate() >= 0.9 || this.getEstimationRate() >= 90) {
+            console.log(this.firstName + " " + this.lastName + '  You can do better!');
+        } else {
+            console.log(this.firstName + " " + this.lastName + '  Radish!');
+        }
+    };
+
     // StudentsArray
     function Students() {
         this.studentsArray = [];
     }
+
     var sproto = Students.prototype;
     sproto.add = function (students) {
-        if(!Array.isArray(students)){
+        if (!Array.isArray(students)) {
             this.studentsArray.push(students);
         } else {
             students.forEach(function (item, index) {
@@ -87,14 +91,14 @@
         }
     };
     sproto.attendance = function (lastName) {
-        if(lastName){
+        if (lastName) {
             return lastName + ' attendance rate: ' + this.getRate('attendance', lastName).toFixed(0);
         } else {
-            return 'Average class attendance: ' +this.getRate('attendance', lastName).toFixed(2);
+            return 'Average class attendance: ' + this.getRate('attendance', lastName).toFixed(2);
         }
     };
     sproto.performance = function (lastName) {
-        if(lastName){
+        if (lastName) {
             return lastName + ' estimation rate: ' + this.getRate('estimation', lastName).toFixed(0);
         } else {
             return 'Average class perfomance: ' + this.getRate('estimation', lastName).toFixed(2);
@@ -110,14 +114,14 @@
         propertySum = propertyArray.reduce(function (a, b) {
             return a + b;
         });
-        if(!lastName){
-            return  propertySum/this.studentsArray.length;
+        if (!lastName) {
+            return propertySum / this.studentsArray.length;
         } else {
             this.studentsArray.forEach(function (student) {
-                if(student.lastName === lastName){
-                    var studentProperty = student['get' + property.charAt(0).toUpperCase() +  property.slice(1) + 'Rate']();
+                if (student.lastName === lastName) {
+                    var studentProperty = student['get' + property.charAt(0).toUpperCase() + property.slice(1) + 'Rate']();
                     propertyArray.sort(function (a, b) {
-                        return b -a;
+                        return b - a;
                     });
                     rate = propertyArray.indexOf(studentProperty);
                 }
@@ -127,19 +131,19 @@
         return rate + 1;
     };
     var st1 = new Student('Alex', 'Below', 1990);
-    st1.estimates = [90,90,100,90,88,100];
+    st1.estimates = [90, 90, 100, 90, 88, 100];
     st1.present(10);
     st1.absent();
     st1.summary();
 
     var st2 = new Student('Julia', 'Safronova', 1980);
-    st2.estimates = [65,90,100,30,88,100];
+    st2.estimates = [65, 90, 100, 30, 88, 100];
     st2.present(2);
     st2.absent(8);
     st2.summary();
 
     var st3 = new Student('Boris', 'Kolorist', 1999);
-    st3.estimates = [90,90,88,90,88,100];
+    st3.estimates = [90, 90, 88, 90, 88, 100];
     st3.present(12);
     st3.absent(16);
     st3.summary();
@@ -150,7 +154,6 @@
     console.log(studentsClass.performance());
     console.log(studentsClass.attendance('Below'));
     console.log(studentsClass.performance('Safronova'));
-
 
 </script>
 </body>
