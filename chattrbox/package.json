@@ -16,7 +16,11 @@
         "babelify",
         {
           "presets": [
+<<<<<<< HEAD
             "env"
+=======
+            "es2015"
+>>>>>>> 35d7d8edff41ade5e64fd9da69a2f1507064514e
           ],
           "sourceMap": true
         }
