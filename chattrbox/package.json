@@ -16,11 +16,8 @@
         "babelify",
         {
           "presets": [
-<<<<<<< HEAD
-            "env"
-=======
+            "env",
             "es2015"
->>>>>>> 35d7d8edff41ade5e64fd9da69a2f1507064514e
           ],
           "sourceMap": true
         }
@@ -35,6 +32,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^8.0.0",
     "browserify": "^16.1.0",
+    "jquery": "^3.3.1",
     "nodemon": "^1.15.0",
     "watchify": "^3.10.0"
   },
