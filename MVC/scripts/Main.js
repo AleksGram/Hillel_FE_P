@@ -19,6 +19,8 @@ Task.prototype.render = function () {
     $(this.el).click(this.done.bind(this));
     $(this.el).click(this.editTask);
     this.addEditButton(this.el);
+
+    createTemplateItem();
     return this.el;
 };
 proto.addEditButton = function (task) {
@@ -130,6 +132,14 @@ listProto.hideDone = function () {
     }
 };
 var taskList = new TasksList();
+function createTemplateItem () {
+    var testTask =  {
+        context: 'Test text',
+        isDone: true
+    };
+    $(itemsList).append($('#taskTemplate').tmpl(testTask));
+}
+
 
 
 

@@ -8,4 +8,4 @@ var server = http.createServer(function (req, res) {
     var filePath = extract(req.url);
    reader(filePath, res);
 });
-server.listen(3000);
+server.listen(3028);

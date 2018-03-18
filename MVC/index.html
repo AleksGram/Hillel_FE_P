@@ -17,9 +17,17 @@
         </ol>
     </div>
 </div>
+<script src="http://code.jquery.com/jquery-1.5rc1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="scripts/Model.js" charset="utf-8"></script>
-<script src="scripts/Controller.js" charset="utf-8"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
 <script src="scripts/Main.js" charset="utf-8"></script>
+
+<script id="taskTemplate" type="text/task-template">
+    <li>
+        ${context}
+        <button>Edit</button>
+    </li>
+</script>
+
 </body>
 </html>
