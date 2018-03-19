@@ -13,21 +13,21 @@ function Task(text) {
 };
 var proto = Task.prototype;
 
-Task.prototype.render = function () {
-    this.el = document.createElement('li');
-    $(this.el).text(this.text);
+Task.prototype.render = function (tmplItem) {
+    // this.el = document.createElement('li');
+    // $(this.el).text(this.text);
+
+    this.el =  tmplItem[0];
     $(this.el).click(this.done.bind(this));
     $(this.el).click(this.editTask);
-    this.addEditButton(this.el);
-
-    createTemplateItem();
+    // this.addEditButton(this.el);
     return this.el;
 };
-proto.addEditButton = function (task) {
-    var editButton = document.createElement('button');
-    $(editButton).text('Edit');
-    $(task).append(editButton);
-};
+// proto.addEditButton = function (task) {
+//     var editButton = document.createElement('button');
+//     $(editButton).text('Edit');
+//     $(task).append(editButton);
+// };
 proto.done = function (e) {
     if (e.target.tagName === 'LI') {
         this.isDone = !this.isDone;
@@ -74,9 +74,17 @@ var listProto = TasksList.prototype;
 
 listProto.push = function (text) {
     var item = new Task(text);
+
+    var tmplItem = $('#taskTemplate').tmpl(item);
+    item.render(tmplItem);
+
+
     [].push.call(this, item);
     var id = this.length - 1;
-    this.el.append(item.render());
+    // this.el.append(item.render());
+
+    this.el.append(tmplItem);
+
     item.id = id;
     item.save();
 };
@@ -132,13 +140,8 @@ listProto.hideDone = function () {
     }
 };
 var taskList = new TasksList();
-function createTemplateItem () {
-    var testTask =  {
-        context: 'Test text',
-        isDone: true
-    };
-    $(itemsList).append($('#taskTemplate').tmpl(testTask));
-}
+
+
 
 
 
